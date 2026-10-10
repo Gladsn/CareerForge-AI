@@ -10,6 +10,7 @@ CareerForge AI is an AI-powered web application that helps job seekers tailor th
 
 **Open the live application:**  
 https://career-forge-ai-seven.vercel.app/
+(Please use data or home wifi to open the website)
 
 ### 🔗 n8n Production Webhook
 
