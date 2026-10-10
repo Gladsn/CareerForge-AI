@@ -1,75 +1,217 @@
-# CareerForge AI — Simplified & Direct n8n Integration
+# CareerForge AI — AI-Powered Resume Tailoring
 
-**CareerForge AI** is a focused, clean web tool to tailor LaTeX resumes using your live **n8n Cloud workflow**.
+**Tailor your resume to the job. Preserve your experience. Generate LaTeX ready for Overleaf.**
 
----
+CareerForge AI is an AI-powered web application that helps job seekers tailor their existing LaTeX resumes to specific job descriptions. It connects a React frontend to an n8n Cloud workflow that analyses job requirements, identifies relevant resume evidence, and generates a tailored LaTeX resume with a job-match report.
 
-## ⚡ Direct n8n Setup
+## 🔗 Project Links
 
-1. Open **[http://localhost:5173](http://localhost:5173)**.
-2. In the top **n8n Webhook** bar, paste your n8n Production Webhook URL (e.g. `https://your-workspace.app.n8n.cloud/webhook/careerforge-tailor`).
-3. Click **Test Webhook** to confirm your endpoint is reachable.
-4. Upload or paste your Master Resume `.tex` on the left, paste the target Job Description on the right, and click **Tailor Resume via n8n**.
+- **Frontend (Local Development):** [http://localhost:5173/](http://localhost:5173/)
+- **n8n Cloud Backend Webhook:** [CareerForge AI Production Webhook](https://gladsonissac.app.n8n.cloud/webhook/careerforge-tailor)
 
----
+### How to Test
 
-## 📬 What CareerForge AI sends to your n8n Webhook (HTTP POST)
+1. Run the frontend locally using `npm run dev`.
+2. Open [http://localhost:5173/](http://localhost:5173/) in your browser.
+3. Configure the frontend with the n8n Production Webhook URL.
+4. Upload or paste your master LaTeX resume and enter the target job description.
+5. Generate the tailored resume and review the job-match report.
+6. Copy or download the generated LaTeX code and compile it using [Overleaf](https://www.overleaf.com/).
+
+**Note:** The local frontend URL is accessible only on the computer running the development server. To let others access the website from their own devices, deploy the frontend and replace this local URL with the deployed website URL.
+
+## 🚀 Features
+
+- **LaTeX Resume Input:** Upload or paste your existing `.tex` resume.
+- **Job Description Analysis:** Analyse a target job description to identify relevant skills, qualifications, and responsibilities.
+- **AI-Powered Resume Tailoring:** Emphasise relevant experience, skills, and projects supported by the original resume.
+- **Job-Match Score:** Get an estimated score indicating how closely your resume aligns with the job requirements.
+- **Requirement Analysis:** View matched requirements and missing or unverified skills.
+- **LaTeX Code Generation:** Generate a complete LaTeX document that can be copied into Overleaf.
+- **Export Options:** Copy the generated code or download it as a `.tex` file.
+- **Workflow Automation:** Use n8n Cloud to orchestrate AI processing and response validation.
+- **Input and Output Validation:** Check required inputs and basic LaTeX document structure.
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|---|---|
+| React | Frontend user interface |
+| TypeScript | Application logic and type safety |
+| Vite | Development server and build tool |
+| Tailwind CSS | Interface styling |
+| n8n Cloud | Workflow automation and API integration |
+| Google Gemini | AI-powered resume analysis and tailoring |
+| LaTeX / Overleaf | Resume source generation and compilation |
+
+## ⚙️ How It Works
+
+```mermaid
+flowchart TD
+    A[Enter Master LaTeX Resume] --> C[CareerForge AI Frontend]
+    B[Enter Job Description] --> C
+    C --> D[n8n Cloud Webhook]
+    D --> E[Validate Input]
+    E --> F[AI Resume Tailoring]
+    F --> G[Validate AI Output]
+    G --> H[Return LaTeX and Match Report]
+    H --> I[Preview and Copy or Download]
+    I --> J[Compile in Overleaf]
+```
+
+1. The user provides an existing LaTeX resume and a job description.
+2. The frontend sends the information to the configured n8n webhook.
+3. The workflow validates the input and analyses the job requirements.
+4. Google Gemini generates a tailored resume and a structured job-match report.
+5. The workflow checks the generated output for basic structural issues.
+6. The frontend displays the results and provides the LaTeX source for copying or downloading.
+7. The user can compile the generated source in Overleaf to obtain the final PDF.
+
+## 💻 Run Locally
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/)
+- npm
+- Git
+- An n8n Cloud account with the CareerForge AI workflow configured
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Gladsn/CareerForge-AI.git
+cd CareerForge-AI
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+Open the local URL shown in the terminal. By default, Vite uses:
+
+```text
+http://localhost:5173
+```
+
+### 4. Build for production
+
+```bash
+npm run build
+```
+
+The production files are generated in the `dist/` directory.
+
+## 🔗 Connect to n8n Cloud
+
+CareerForge AI uses an n8n Webhook node to communicate with the AI workflow.
+
+1. Open the CareerForge AI website.
+2. Enter the **Production Webhook URL** from your published n8n workflow in the webhook configuration section.
+3. Save the configuration.
+4. Use **Test Connection** to check connectivity.
+5. Enter your master resume and the target job description.
+6. Generate the tailored resume and review the returned analysis.
+
+The current webhook endpoint follows this format:
+
+```text
+https://YOUR-WORKSPACE.app.n8n.cloud/webhook/careerforge-tailor
+```
+
+Replace the example with the Production URL from your own n8n workflow.
+
+### Request Format
+
+The workflow expects a JSON request containing these required fields:
 
 ```json
 {
-  "masterResumeTex": "\\documentclass{article} ... \\end{document}",
-  "jobDescription": "Full job description text...",
-  "targetRole": "Senior Software Engineer",
-  "targetCompany": "Target Company",
-  "timestamp": "2026-10-10T14:00:00.000Z"
+  "masterLatex": "Complete original LaTeX resume source",
+  "jobDescription": "Full target job description"
 }
 ```
 
----
+The frontend may also send optional fields such as `targetRole`, `targetCompany`, `masterResumeTex`, and `timestamp`. The current workflow primarily reads `masterLatex` and `jobDescription`.
 
-## 📥 Expected Response from your n8n Webhook (JSON)
+### Successful Response
 
-Your n8n workflow (e.g., using a **Respond to Webhook** node) should return:
+The current workflow returns a structured JSON response similar to:
 
 ```json
 {
-  "tailoredTex": "\\documentclass{article} ... \\end{document}",
+  "success": true,
+  "latexCode": "Complete tailored LaTeX document",
+  "tailoredTex": "Complete tailored LaTeX document",
   "matchScore": 85,
-  "summary": "Executive summary of alignment",
   "matchedRequirements": [
-    {
-      "requirement": "React & TypeScript",
-      "sourceEvidence": "Built real-time client dashboards"
-    }
+    "Requirements supported by the original resume"
   ],
   "missingRequirements": [
-    {
-      "requirement": "Apache Kafka",
-      "recommendation": "Mention message queue fundamentals; do not fabricate"
-    }
+    "Requirements not evidenced in the original resume"
   ],
-  "tailoringRecommendations": [
-    {
-      "area": "Skills section",
-      "suggestion": "Elevate PostgreSQL to primary position"
-    }
+  "changesMade": [
+    "Emphasised relevant project experience"
   ],
-  "changesApplied": [
-    {
-      "section": "Experience",
-      "reasoning": "Emphasized financial transaction throughput"
-    }
-  ]
+  "warnings": []
 }
 ```
 
-*(Note: The frontend also gracefully supports simpler responses, such as `{ "tailoredTex": "..." }` or plain LaTeX)*.
+The values above are examples only. Actual results depend on the submitted resume, job description, and AI output.
+
+## 🛡️ Responsible AI
+
+CareerForge AI is designed to support accurate and evidence-based resume tailoring.
+
+- The original resume serves as the source of truth for qualifications, skills, and experience.
+- Missing or unverified job requirements should be reported rather than fabricated.
+- The match score is an estimate of requirement coverage, not a guaranteed ATS score.
+- Output validation checks basic LaTeX structure but does not guarantee successful compilation.
+- Generated resumes should be reviewed before submission to an employer.
+
+## 🔒 Security Notes
+
+- Keep AI API keys and credentials out of frontend source code.
+- Configure the Google Gemini credential securely in n8n.
+- The current demonstration webhook does not use authentication. Anyone who obtains its URL may be able to trigger requests and consume AI quota.
+- Restrict access and configure appropriate authentication before making the application available to wider audiences.
+- Avoid submitting sensitive personal information unless necessary for testing.
+
+## 📁 Project Structure
+
+```text
+CareerForge-AI/
+├── public/
+├── src/
+├── index.html
+├── package.json
+├── package-lock.json
+├── tailwind.config.js
+├── postcss.config.js
+├── tsconfig.json
+├── vite.config.ts
+├── .gitignore
+└── README.md
+```
+
+## 🔮 Future Improvements
+
+- Authentication and protected backend integration
+- Before-and-after resume comparisons
+- More detailed job-requirement evidence mapping
+- Stronger LaTeX compilation validation
+- Resume analysis history
+- Improved error handling and retry logic
+
+**Project Repository:** [CareerForge-AI](https://github.com/Gladsn/CareerForge-AI)
 
 ---
 
-## 🛠️ n8n Webhook Node Settings
-
-- **HTTP Method**: `POST`
-- **Path**: `careerforge-tailor` (or your chosen path)
-- **Response Mode**: `Using 'Respond to Webhook' Node`
-- **Allowed Origins (CORS)**: Set to `*` to allow browser `fetch` requests.
+*CareerForge AI — Better-targeted resumes, backed by your actual experience.*
