@@ -224,7 +224,7 @@ CareerForge-AI/
 - Improved error handling and retry logic
 
 **Project Repository:** [CareerForge-AI](https://github.com/Gladsn/CareerForge-AI)
-
+Done by Gladson and Surabhi
 ---
 
 *CareerForge AI — Better-targeted resumes, backed by your actual experience.*
