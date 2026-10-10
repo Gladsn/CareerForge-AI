@@ -4,10 +4,12 @@
 
 CareerForge AI is an AI-powered web application that helps job seekers tailor their existing LaTeX resumes to specific job descriptions. It connects a React frontend to an n8n Cloud workflow that analyses job requirements, identifies relevant resume evidence, and generates a tailored LaTeX resume with a job-match report.
 
-## 🔗 Project Links
+## 🚀 Project Links
 
-- **Frontend (Local Development):** [http://localhost:5173/](http://localhost:5173/)
-- **n8n Cloud Backend Webhook:** [CareerForge AI Production Webhook](https://gladsonissac.app.n8n.cloud/webhook/careerforge-tailor)
+- **Vercel Deployment Dashboard:** [View CareerForge AI Deployment](https://vercel.com/career-forge4/career-forge-ai/69no6GhAgcZvQctT1jommkaz393t)
+- **GitHub Repository:** [Gladsn/CareerForge-AI](https://github.com/Gladsn/CareerForge-AI)
+- **n8n Cloud Workflow:** [CareerForge AI Webhook](https://gladsonissac.app.n8n.cloud/webhook/careerforge-tailor)
+
 
 ### How to Test
 
