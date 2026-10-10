@@ -4,23 +4,34 @@
 
 CareerForge AI is an AI-powered web application that helps job seekers tailor their existing LaTeX resumes to specific job descriptions. It connects a React frontend to an n8n Cloud workflow that analyses job requirements, identifies relevant resume evidence, and generates a tailored LaTeX resume with a job-match report.
 
-## 🚀 Project Links
+## 🚀 Live Project Links
 
-- **Vercel Deployment Dashboard:** [View CareerForge AI Deployment](https://vercel.com/career-forge4/career-forge-ai/69no6GhAgcZvQctT1jommkaz393t)
-- **GitHub Repository:** [Gladsn/CareerForge-AI](https://github.com/Gladsn/CareerForge-AI)
-- **n8n Cloud Workflow:** [CareerForge AI Webhook](https://gladsonissac.app.n8n.cloud/webhook/careerforge-tailor)
+### 🌐 CareerForge AI Website
 
+**Open the live application:**  
+https://career-forge-ai-seven.vercel.app/
 
-### How to Test
+### 🔗 n8n Production Webhook
 
-1. Run the frontend locally using `npm run dev`.
-2. Open [http://localhost:5173/](http://localhost:5173/) in your browser.
-3. Configure the frontend with the n8n Production Webhook URL.
-4. Upload or paste your master LaTeX resume and enter the target job description.
-5. Generate the tailored resume and review the job-match report.
-6. Copy or download the generated LaTeX code and compile it using [Overleaf](https://www.overleaf.com/).
+Copy the following URL and paste it into the **n8n Webhook** field on the website:
 
-**Note:** The local frontend URL is accessible only on the computer running the development server. To let others access the website from their own devices, deploy the frontend and replace this local URL with the deployed website URL.
+```text
+https://gladsonissac.app.n8n.cloud/webhook/careerforge-tailor
+```
+
+### 🧪 How to Test the Project
+
+1. Open the [CareerForge AI website](https://career-forge-ai-seven.vercel.app/).
+2. Copy the n8n Production Webhook URL above.
+3. Paste it into the website's webhook configuration field.
+4. Click **Test Connection** and confirm the connection succeeds.
+5. Upload or paste your master LaTeX resume.
+6. Paste the target job description and click **Tailor Resume via n8n**.
+7. Review the generated LaTeX resume, job-match score, matched requirements, and missing requirements.
+8. Copy or download the generated `.tex` code and compile it using [Overleaf](https://www.overleaf.com/).
+
+**Note:** The webhook is an API endpoint intended to receive POST requests from the application. Opening its URL directly in a browser is not the same as testing the connection.
+
 
 ## 🚀 Features
 
